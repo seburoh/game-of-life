@@ -1,5 +1,16 @@
-# game-of-life
+# Game Of Life
+Simple implementation of John Conway's *Game of Life* using javascript. Can be directly run on the associated github.io page.
 
-In progress attempt at creating the Game of Life using a provided JavaScript 2D game engine.
+# Interaction
+There are three sliders which control various aspects of the simulation:
+* Speed: The speed of the simulation from slow to fast. If the slider is moved all the way to the left, the simulation pauses.
+* Cell Size: The size of each cell in the simulation. To apply this change the restart button must be pressed.
+* Life Chance: The chance for each cell to be alive at the start of the simulation. To apply this change the restart button must be pressed.
+
+# Drawbacks
+The HTML is fairly crude. May revisit in the future to improve the appearance of the elements.
+
+# Resources
+* <a href="https://github.com/algorithm0r/Empty--GameEngine">Game Engine</a>: Base game engine used to generate canvas and timing logic.
 
 <img src="https://github.com/cat-milk/Anime-Girls-Holding-Programming-Books/blob/master/Javascript/Maya_Yamato_Holding_Javascript_For_Absolute_Beginners.png?raw=true" alt="Confusion">

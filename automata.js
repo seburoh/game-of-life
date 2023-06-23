@@ -1,5 +1,4 @@
 class Automata {
-    //Goals: size, restart, life random
     constructor(game) {
         Object.assign(this, {game});
         //base parameters do not touch
@@ -27,12 +26,18 @@ class Automata {
         this.insertRandomLife();
     }
 
+    /**
+     * Reset simulation with updated parameters.
+     * Called by HTML button.
+     */
     resetSim() {
         this.automata = [];
 
         this.cellSize = parseInt(document.getElementById('cellsize').value, 10);
         this.height = Math.floor(800/this.cellSize);
         this.width = Math.floor(1600/this.cellSize);
+
+        this.lifeChance = parseInt(document.getElementById('lifechance').value, 10);
 
         this.buildEmptyStateArray();
         this.insertRandomLife();
@@ -90,9 +95,10 @@ class Automata {
      * Logic updates that happen each tick.
      */
     update() {
-        this.speed = parseInt(document.getElementById('speed').value, 10);
+        //flip the speed slider so it makes human sense
+        let speed = 120 - parseInt(document.getElementById('speed').value, 10);
 
-        if (this.tickCount++ >= this.speed && this.speed != 120) {
+        if (this.tickCount++ >= speed && speed != 119) {
             this.tickCount = 0;
             document.getElementById('ticks').innerHTML = 'Ticks: ' + ++this.ticks;
 
@@ -110,7 +116,6 @@ class Automata {
                     }
                 }
             }
-
             this.automata = next;
         }
     }
