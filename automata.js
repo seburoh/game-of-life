@@ -1,6 +1,6 @@
 class Automata {
     constructor(game) {
-        Object.assign(this, {game});
+        Object.assign(this, { game });
         //base parameters do not touch
         this.baseHeight = 100;
         this.baseWidth = 200;
@@ -34,8 +34,8 @@ class Automata {
         this.automata = [];
 
         this.cellSize = parseInt(document.getElementById('cellsize').value, 10);
-        this.height = Math.floor(800/this.cellSize);
-        this.width = Math.floor(1600/this.cellSize);
+        this.height = Math.floor(800 / this.cellSize);
+        this.width = Math.floor(1600 / this.cellSize);
 
         this.lifeChance = parseInt(document.getElementById('lifechance').value, 10);
 
@@ -83,8 +83,8 @@ class Automata {
             for (let row = -1; row < 2; row++) {
                 if ((cellCol + col) > -1 && (cellCol + col) < this.width
                     && (cellRow + row) > -1 && (cellRow + row) < this.height) {
-                        count += this.automata[(cellCol + col)][(cellRow + row)];
-                    }
+                    count += this.automata[(cellCol + col)][(cellRow + row)];
+                }
             }
         }
 
@@ -108,7 +108,7 @@ class Automata {
             for (let col = 0; col < this.width; col++) {
                 next.push([]);
                 for (let row = 0; row < this.height; row++) {
-                    let count = this.countNeighbors(col,row);
+                    let count = this.countNeighbors(col, row);
                     if ((count == 3) || (count == 2 && this.automata[col][row] == 1)) {
                         next[col][row] = 1;
                     } else {
