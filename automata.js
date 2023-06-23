@@ -71,24 +71,33 @@ class Automata {
     }
 
     /**
-     * Counts live neighbors of given cell.
+     * Returns if this cell should live or die.
      * @param {int} cellCol column to check
      * @param {int} cellRow row to check
+     * @returns true if cell should live
      */
-    countNeighbors(cellCol, cellRow) {
-        //if current cell is live, offset start to match.
-        let count = this.automata[cellCol][cellRow] == 0 ? 0 : -1;
+    cellReaper(cellCol, cellRow) {
+        let count = 0;
 
         for (let col = -1; col < 2; col++) {
             for (let row = -1; row < 2; row++) {
-                if ((cellCol + col) > -1 && (cellCol + col) < this.width
-                    && (cellRow + row) > -1 && (cellRow + row) < this.height) {
-                    count += this.automata[(cellCol + col)][(cellRow + row)];
-                }
+                count += this.automata[this.wrapValue(cellCol + col, this.width)]
+                                        [this.wrapValue(cellRow + row, this.height)];
             }
         }
 
-        return count;
+        //count includes host square, these numbers account for off by one
+        return ((count == 3) || (count == 4 && this.automata[cellCol][cellRow] == 1));
+    }
+
+    /**
+     * Keeps val within positive mod max.
+     * @param {int} val value to mod.
+     * @param {int} max modulus or whatever the right term is.
+     * @returns absolute value of val mod max
+     */
+    wrapValue(val, max) {
+        return Math.abs(val % max);
     }
 
     /**
@@ -108,12 +117,7 @@ class Automata {
             for (let col = 0; col < this.width; col++) {
                 next.push([]);
                 for (let row = 0; row < this.height; row++) {
-                    let count = this.countNeighbors(col, row);
-                    if ((count == 3) || (count == 2 && this.automata[col][row] == 1)) {
-                        next[col][row] = 1;
-                    } else {
-                        next[col][row] = 0;
-                    }
+                    next[col][row] = this.cellReaper(col, row) ? 1 : 0;
                 }
             }
             this.automata = next;
