@@ -10,7 +10,7 @@ class Automata {
         this.ticks = 0;
         this.lifeChance = 2;
 
-        this.speed = parseInt(document.getElementById('speed').value, 10);
+        //this.speed = parseInt(document.getElementById('speed').value, 10);
 
         this.buildEmptyStateArray();
         this.insertRandomLife();
