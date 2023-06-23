@@ -8,7 +8,7 @@ ASSET_MANAGER.downloadAll(() => {
 
 	gameEngine.init(ctx);
 
-	// TODO: gameEngine.addEntity(new Automata(gameEngine));
+	gameEngine.addEntity(new Automata(gameEngine));
 
 	gameEngine.start();
 });
