@@ -14,17 +14,17 @@
 </head>
 <body>
     <canvas id="gameWorld" width="1600" height="800" style="background: rgb(89, 89, 89); border: 1px solid black" tabindex="0" autofocus></canvas>
-
-    <!-- TODO: add levers and buttons, thoughts, have selector for colors -->
     <div>
         <div id="ticks">Ticks: 0</div>
         <label for="speed">Fast</label>
         <input type="range" id="speed" min="1" max="120" value="30" step="1">
         <label for="speed">Slow</label>
-    </div>
-    <!-- TODO: not align=right, pin it to bottom-right corner of game window -->
-    <div align="right">
-        <div id="tickss">Tickss: 0</div>
+    </br>
+        <label for="cellsize">Small</label>
+        <input type="range" id="cellsize" min="3" max="20" value="8" step="1">
+        <label for="cellsize">Large</label>
+    </br>
+    <button id="restartButton" type="button">restart</button>
     </div>
 </body>
 </html>

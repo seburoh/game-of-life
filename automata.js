@@ -1,19 +1,44 @@
 class Automata {
-    //Goals: size, restart
+    //Goals: size, restart, life random
     constructor(game) {
         Object.assign(this, {game});
+        //base parameters do not touch
+        this.baseHeight = 100;
+        this.baseWidth = 200;
+        this.baseCellSize = 8;
 
+        //normal stuff
         this.automata = [];
-        this.height = 100;
-        this.width = 200;
+        this.height = this.baseHeight;
+        this.width = this.baseWidth;
+        this.cellSize = this.baseCellSize;
         this.tickCount = 0;
         this.ticks = 0;
         this.lifeChance = 2;
 
-        //this.speed = parseInt(document.getElementById('speed').value, 10);
+        //button
+        this.button = document.getElementById('restartButton');
+        this.button.addEventListener('click', (e) => {
+            this.resetSim();
+        });
+
+        //setup
+        this.buildEmptyStateArray();
+        this.insertRandomLife();
+    }
+
+    resetSim() {
+        this.automata = [];
+
+        this.cellSize = parseInt(document.getElementById('cellsize').value, 10);
+        this.height = Math.floor(800/this.cellSize);
+        this.width = Math.floor(1600/this.cellSize);
 
         this.buildEmptyStateArray();
         this.insertRandomLife();
+
+        this.tickCount = 0;
+        this.ticks = 0;
     }
 
     /**
@@ -94,13 +119,14 @@ class Automata {
      * Draw new state each tick.
      */
     draw(ctx) {
-        let size = 8, gap = 1;
+        let gap = 1;
         ctx.fillStyle = "Green";
 
         for (let col = 0; col < this.width; col++) {
             for (let row = 0; row < this.height; row++) {
                 if (this.automata[col][row]) {
-                    ctx.fillRect(col * size + gap, row * size + gap, size - 2 * gap, size - 2 * gap);
+                    ctx.fillRect(col * this.cellSize + gap, row * this.cellSize + gap,
+                        this.cellSize - 2 * gap, this.cellSize - 2 * gap);
                 }
             }
         }
