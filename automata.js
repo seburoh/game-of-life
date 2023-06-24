@@ -1,19 +1,18 @@
 class Automata {
     constructor(game) {
         Object.assign(this, { game });
-        //base parameters do not touch
-        this.baseHeight = 100;
-        this.baseWidth = 200;
-        this.baseCellSize = 8;
 
-        //normal stuff
+        //starting values
         this.automata = [];
-        this.height = this.baseHeight;
-        this.width = this.baseWidth;
-        this.cellSize = this.baseCellSize;
+        this.height = 100;
+        this.width = 200;
+        this.cellSize = 8;
         this.tickCount = 0;
         this.ticks = 0;
         this.lifeChance = 2;
+
+        //image stuff
+        this.lifeimg = ASSET_MANAGER.getAsset("./school.png");
 
         //button
         this.button = document.getElementById('restartButton');
@@ -94,10 +93,10 @@ class Automata {
      * Keeps val within positive mod max.
      * @param {int} val value to mod.
      * @param {int} max modulus or whatever the right term is.
-     * @returns absolute value of val mod max
+     * @returns positive value of val mod max
      */
     wrapValue(val, max) {
-        return Math.abs(val % max);
+        return ((val+max) % max);
     }
 
     /**
@@ -134,8 +133,13 @@ class Automata {
         for (let col = 0; col < this.width; col++) {
             for (let row = 0; row < this.height; row++) {
                 if (this.automata[col][row]) {
-                    ctx.fillRect(col * this.cellSize + gap, row * this.cellSize + gap,
-                        this.cellSize - 2 * gap, this.cellSize - 2 * gap);
+                    if (document.getElementById('useImageCheckbox').checked) {
+                        ctx.drawImage(this.lifeimg, col * this.cellSize + gap, row * this.cellSize + gap,
+                            this.cellSize - 2 * gap, this.cellSize - 2 * gap);
+                    } else {
+                        ctx.fillRect(col * this.cellSize + gap, row * this.cellSize + gap,
+                            this.cellSize - 2 * gap, this.cellSize - 2 * gap);
+                    }
                 }
             }
         }
